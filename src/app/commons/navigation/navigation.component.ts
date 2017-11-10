@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from './nav-item.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'fdv-navigation',
@@ -27,8 +28,11 @@ export class NavigationComponent implements OnInit {
   public activeNav: string;
 
   constructor(private _router: Router) {
-    // Active navigation element
-    this.activeNav = this._router.config[0].path;
+    this._router.events.subscribe((url:any) => {
+      if (!_.isUndefined(url.url)) {
+        this.activeNav = url.url.replace(/^\//, "");
+      }
+    });
   }
 
   ngOnInit() {
