@@ -6,3 +6,9 @@
 router-outlet{
   display: block;
 }
+
+.btn,
+a{
+  cursor: pointer;
+  user-select: none;
+}
