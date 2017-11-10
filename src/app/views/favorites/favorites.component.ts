@@ -48,7 +48,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class FavoritesComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }
