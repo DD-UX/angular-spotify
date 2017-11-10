@@ -5,7 +5,9 @@ import { NavItem } from './nav-item.model';
 @Component({
   selector: 'fdv-navigation',
   templateUrl: './navigation.component.tpl.html',
-  styles: [],
+  styleUrls: [
+    './_navigation.scss'
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export class NavigationComponent implements OnInit {
