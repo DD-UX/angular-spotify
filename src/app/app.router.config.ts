@@ -3,6 +3,10 @@ import {FavoritesComponent} from './views/favorites/favorites.component';
 
 export const RouterConfig: Route[] = [
   {
+    path: 'search',
+    component: FavoritesComponent
+  },
+  {
     path: 'favorites',
     component: FavoritesComponent
   },
