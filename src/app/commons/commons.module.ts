@@ -6,7 +6,7 @@ import { NavigationComponent } from './navigation/navigation.component';
   imports: [
     CommonModule
   ],
-  declarations: [NavigationComponent]
+  declarations: [NavigationComponent],
   exports: [NavigationComponent]
 })
 export class CommonsModule { }
