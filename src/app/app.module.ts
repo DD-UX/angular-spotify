@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CommonsModule } from './commons/commons.module';
 import { ViewsModule } from './views/views.module';
+import { RouterConfig } from './router.config';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
@@ -13,6 +15,7 @@ import { ViewsModule } from './views/views.module';
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(RouterConfig),
     CommonsModule,
     ViewsModule
   ],
