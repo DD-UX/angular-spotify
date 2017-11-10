@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'fdv-root',
   template: `
     <fdv-navigation></fdv-navigation>
+    <fdv-favorites></fdv-favorites>
   `,
   styles: []
 })
