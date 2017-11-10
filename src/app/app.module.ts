@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { CommonsModule } from './commons/commons.module';
-import { ViewsModule } from './views/views.module';
+import { CommonsModule } from './commons/common.module';
 
 
 @NgModule({
@@ -13,8 +12,7 @@ import { ViewsModule } from './views/views.module';
   ],
   imports: [
     BrowserModule,
-    CommonsModule,
-    ViewsModule
+    CommonsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
