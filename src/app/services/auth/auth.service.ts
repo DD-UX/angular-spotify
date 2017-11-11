@@ -28,12 +28,17 @@ export class AuthService {
   // Token map
   private token = new Map(JSON.parse(localStorage.getItem('spotify_token'))) || new Map ();
 
+  public headers: any;
+
   constructor (private http: HttpClient, private router: Router) {}
 
   // Checks for token availability or listen its incoming
   checkToken (): any {
     if (this.token.size > 0){
-      return this.login();
+      // Set headers
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get('access_token'));
+
+      this.login();
     }
 
     return this.listenTokenMessage();
@@ -56,7 +61,11 @@ export class AuthService {
         this.token.set(u[0], u[1]);
       });
 
+      // Set local storage of token
       localStorage.setItem('spotify_token', JSON.stringify(Array.from(this.token.entries())));
+
+      // Set headers
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get('access_token'));
 
       this.login();
     }, false);
@@ -67,9 +76,8 @@ export class AuthService {
     const subject = new Subject<any>();
 
     this.http
-      .get<User>(App.USER_URL, {
-        headers: new HttpHeaders()
-          .set('Authorization', 'Bearer ' + this.token.get('access_token'))
+      .get<User>(App.USER_URL + '/me', {
+        headers: this.headers
       })
       .subscribe (
         data => {
