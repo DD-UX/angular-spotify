@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavItem } from './nav-item.model';
+import { NavItem } from '../../models/navigation/nav-item.model';
 import * as _ from 'lodash';
 
 @Component({
