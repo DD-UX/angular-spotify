@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 
-import { User } from '../../models/auth/user';
+import { User } from '../../models/auth/user.model';
 
 import * as App from '../../app.config';
 import * as _ from 'lodash';

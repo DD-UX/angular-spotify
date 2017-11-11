@@ -1,17 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {FavoritesService} from '../../services/favorites/favorites.service';
+import {Playlist} from '../../models/favorites/playlist.model';
 
 @Component({
   selector: 'fdv-favorites',
     template: `
       <fdv-navigation></fdv-navigation>
       <div class="container">
-        <ul class="list-unstyled favorites__list row justify-content-around">
-          <li class="media mt-4 d-flex flex-column col-6 align-items-center col-md-3 col-xl-3">
-            <img class="mb-3 rounded-circle" src="https://avatars2.githubusercontent.com/u/9665653?s=460&v=4" alt="Placeholder">
+        <ul *ngIf="!!favoritesList"
+            class="list-unstyled favorites__list row justify-content-around">
+          <li *ngFor="let playlist of favoritesList.playlists.items"
+              class="media mt-4 d-flex flex-column col-6 align-items-center col-md-4 col-xl-3">
+            <img class="mb-3 rounded-circle" [src]="playlist.images[0].url" [alt]="playlist.name">
             <div class="media-body">
-              <h5 class="mb-2">List-based media object</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              <h5 class="mb-2">{{playlist.name}}</h5>
             </div>
           </li>
         </ul>
@@ -21,13 +23,21 @@ import {FavoritesService} from '../../services/favorites/favorites.service';
   encapsulation: ViewEncapsulation.None
 })
 export class FavoritesComponent implements OnInit {
+  public favoritesList: Playlist;
 
   constructor(private favorites: FavoritesService) {
 
   }
 
   ngOnInit() {
-    this.favorites.getList();
+    this.favorites.getList()
+      .subscribe (
+        data => {
+          this.favoritesList = data;
+        },
+        error => {
+        }
+      );
   }
 
 }

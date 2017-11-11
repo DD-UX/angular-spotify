@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient } from '@angular/common/http';
+
+import {AuthService} from '../auth/auth.service';
+import { Playlist } from '../../models/favorites/playlist.model';
 
 import * as App from '../../app.config';
-import {AuthService} from '../auth/auth.service';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class FavoritesService {
@@ -12,7 +15,7 @@ export class FavoritesService {
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   getList () {
-    return this.http.get(App.USER_URL + App.FEATURED_PLAYLISTS, {
+    return this.http.get<Playlist>(App.USER_URL + App.FEATURED_PLAYLISTS, {
       headers: this.auth.headers
     });
   }
