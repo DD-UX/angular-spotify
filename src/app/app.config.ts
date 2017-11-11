@@ -6,7 +6,7 @@ export const CLIENT_ID = 'a99b5660a7ff4ea894e1effa6b431a0c';
 /*
  * URL to redirect the user after granting access to Spotify
  */
-export const REDIRECT_BACK_TO = 'http://localhost:4200/favorites';
+export const REDIRECT_BACK_TO = 'http://localhost:4200/';
 
 /*
  * URL to bring user's data

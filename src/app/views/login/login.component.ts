@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
     window.location.href = this.spotifyUrl;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.auth.checkToken();
+  }
 
 }
