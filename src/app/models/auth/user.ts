@@ -1,12 +1,13 @@
 export interface User {
   id: string;
-  avatar: string;
-  name: string;
+  images: UserImage[];
+  display_name: string;
   email: string;
   country: string;
-  urls: UserUrls;
+  external_urls: UserUrls;
   followers: UserFollowers;
-  product: any;
+  href: string;
+  type: string;
 }
 
 export interface UserUrls {
@@ -15,4 +16,10 @@ export interface UserUrls {
 
 export interface UserFollowers {
   total: number;
+}
+
+export interface UserImage {
+  height: number;
+  url: string;
+  width: number;
 }

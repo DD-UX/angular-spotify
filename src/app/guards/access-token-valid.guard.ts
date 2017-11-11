@@ -17,16 +17,17 @@ export class AccessTokenValidGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-
     // Check for token in URL
-    this.auth.checkToken();
-
-
-
-
-
-
-
-    return true;
+    return this.auth.checkToken()
+      .subscribe (
+        data => {
+          console.log('isLoggedIn subscribe data: ', data);
+          return true;
+        },
+        error => {
+          console.log('Error: ', error);
+          return false;
+        }
+      );
   }
 }

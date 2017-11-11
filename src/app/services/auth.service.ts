@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+import {User} from '../models/auth/user';
+
 import * as App from '../app.config';
 import * as _ from 'lodash';
+import {_throw} from 'rxjs/observable/throw';
 
 @Injectable()
 export class AuthService {
-  private token = new Map ();
+  private token = new Map(JSON.parse(localStorage.getItem('spotify_token'))) || new Map ();
 
   constructor (private http: HttpClient) {}
 
-  // Checks for the incoming message with the token
-  checkToken (): void {
+  // Checks for token availability or listen its incoming
+  checkToken (): any {
+    if (this.token.size > 0){
+      return this.isLoggedIn();
+    }
 
-    // Listens Spotify authentication factor
+    return this.listenTokenMessage();
+  }
+
+  // Listens message sent from Spotify with token data
+  listenTokenMessage () {
     window.addEventListener('message', () => {
+      // If no hash, exit
       if (_.isUndefined(window.location.hash)) {
         return false;
       }
@@ -28,23 +39,18 @@ export class AuthService {
         this.token.set(u[0], u[1]);
       });
 
-      console.log(this.token);
+      localStorage.setItem('spotify_token', JSON.stringify(Array.from(this.token.entries())));
 
       this.isLoggedIn();
     }, false);
   }
 
-  isLoggedIn():boolean {
-    this.http
-      .get(App.USER_URL, {
-        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get('access_token'))
-      })
-      .subscribe(data => {
-        console.log(data);
+  // Retrieves user's data based on token stored or flags token is invalid
+  isLoggedIn(): any {
+    return this.http
+      .get<User>(App.USER_URL, {
+        headers: new HttpHeaders()
+          .set('Authorization', 'Bearer ' + this.token.get('access_token'))
       });
-
-    return false;
   }
-
-  connect () { }
 }
