@@ -1,4 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component, EventEmitter, OnInit, Output,
+  ViewEncapsulation
+} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,13 +15,21 @@ import { AuthService } from '../../services/auth.service';
 
 export class LoginComponent implements OnInit {
   public today: Date = new Date();
+  public isFormDisabled: boolean = false;
+
+  @Output()
+  click: EventEmitter<any> = new EventEmitter<any>();
+
+  connect () {
+    this.isFormDisabled = true;
+    this.auth.connect();
+  }
 
   constructor(public auth: AuthService) {
 
   }
 
   ngOnInit() {
-    this.auth.connect();
   }
 
 }
