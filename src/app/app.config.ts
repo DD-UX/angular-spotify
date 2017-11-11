@@ -9,6 +9,11 @@ export const CLIENT_ID = 'a99b5660a7ff4ea894e1effa6b431a0c';
 export const REDIRECT_BACK_TO = 'http://localhost:4200/favorites';
 
 /*
+ * URL to bring user's data
+ */
+export const USER_URL = 'https://api.spotify.com/v1/me';
+
+/*
  * Method to redirect the user into the login access screen
  */
 export const LOGIN_URL = (scopes:['user-read-email']) => {

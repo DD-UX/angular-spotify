@@ -28,14 +28,6 @@ export class LoginComponent implements OnInit {
 
   connect () {
     window.location.href = this.spotifyUrl;
-
-    window.addEventListener("message", (event) => {
-      let hash = JSON.parse(event.data);
-
-      if (hash.type === 'access_token') {
-        console.log('Hash: ', hash);
-      }
-    }, false);
   }
 
   ngOnInit() {}

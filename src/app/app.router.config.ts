@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import {FavoritesComponent} from './views/favorites/favorites.component';
 import { LoginComponent } from './views/login/login.component';
+import { AccessTokenValidGuard } from './guards/access-token-valid.guard';
 
 export const RouterConfig: Route[] = [
   {
@@ -9,11 +10,13 @@ export const RouterConfig: Route[] = [
   },
   {
     path: 'search',
-    component: FavoritesComponent
+    component: FavoritesComponent,
+    canActivate: [ AccessTokenValidGuard ]
   },
   {
     path: 'favorites',
-    component: FavoritesComponent
+    component: FavoritesComponent,
+    canActivate: [ AccessTokenValidGuard ]
   },
   {
     path: '',

@@ -7,6 +7,7 @@ import { ViewsModule } from './views/views.module';
 import { RouterConfig } from './app.router.config';
 import { RouterModule } from '@angular/router';
 import { ServicesModule } from './services/services.module';
+import { GuardsModule } from './guards/guards.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ServicesModule } from './services/services.module';
     RouterModule.forRoot(RouterConfig),
     CommonsModule,
     ViewsModule,
-    ServicesModule
+    ServicesModule,
+    GuardsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
