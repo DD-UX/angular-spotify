@@ -23,7 +23,7 @@ import {Playlist} from '../../models/favorites/playlist.model';
   encapsulation: ViewEncapsulation.None
 })
 export class FavoritesComponent implements OnInit {
-  public favoritesList: Playlist;
+  public favoritesList: Playlist = JSON.parse(localStorage.getItem('favorite_list')) || null;
 
   constructor(private favorites: FavoritesService) {
 
@@ -34,6 +34,8 @@ export class FavoritesComponent implements OnInit {
       .subscribe (
         data => {
           this.favoritesList = data;
+          // Set local storage of token
+          localStorage.setItem('favorite_list', JSON.stringify(data));
         },
         error => {
         }
