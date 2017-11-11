@@ -1,22 +1,30 @@
 import { Route } from '@angular/router';
-import {FavoritesComponent} from './views/favorites/favorites.component';
+import { FavoritesComponent } from './views/favorites/favorites.component';
+import { LoginComponent } from './views/login/login.component';
+import { AccessTokenValidGuard } from './guards/access-token-valid.guard';
 
 export const RouterConfig: Route[] = [
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'search',
-    component: FavoritesComponent
+    component: FavoritesComponent,
+    canActivate: [ AccessTokenValidGuard ]
   },
   {
     path: 'favorites',
-    component: FavoritesComponent
+    component: FavoritesComponent,
+    canActivate: [ AccessTokenValidGuard ]
   },
   {
     path: '',
-    redirectTo: 'favorites',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'favorites'
+    redirectTo: 'login'
   }
 ];

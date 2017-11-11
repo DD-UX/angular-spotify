@@ -6,6 +6,8 @@ import { CommonsModule } from './commons/commons.module';
 import { ViewsModule } from './views/views.module';
 import { RouterConfig } from './app.router.config';
 import { RouterModule } from '@angular/router';
+import { ServicesModule } from './services/services.module';
+import { GuardsModule } from './guards/guards.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     RouterModule.forRoot(RouterConfig),
     CommonsModule,
-    ViewsModule
+    ViewsModule,
+    ServicesModule,
+    GuardsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

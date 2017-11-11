@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'fdv-favorites',
     template: `
+      <fdv-navigation></fdv-navigation>
       <div class="container">
         <ul class="list-unstyled favorites__list row justify-content-around">
           <li class="media mt-4 d-flex flex-column col-6 align-items-center col-md-3 col-xl-3">

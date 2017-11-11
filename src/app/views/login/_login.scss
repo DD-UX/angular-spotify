@@ -1,0 +1,70 @@
+@import "~bootstrap/scss/_functions";
+@import "../../../scss/_bootstrap-variables";
+
+
+$pink_bg: linear-gradient(#c074b2,#8ab5e8);
+$black_overlay_bg: linear-gradient(transparent, $black);
+
+
+.page__login{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .brand{
+    background: url(#{$spotify_logo}) no-repeat;
+    background-size: contain;
+    text-indent: -9999px;
+    padding-left: 132px;
+    display: inline-block;
+  }
+
+  header,
+  section,
+  footer{
+    padding: ($spacer/2) $spacer;
+  }
+
+  section{
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: $spacer * 2;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+
+    background: rgba($black, 0.6);
+    border-radius: $border-radius-sm;
+
+    iframe{
+      visibility: hidden;
+      height: 0;
+    }
+  }
+  footer{
+    text-align: right;
+    color: $gray-600;
+  }
+
+  &:before,
+  &:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &:before{
+    background-image: $pink_bg;
+  }
+
+  &:after{
+
+    background-image: $black_overlay_bg;
+  }
+}

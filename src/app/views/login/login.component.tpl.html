@@ -1,0 +1,19 @@
+<main class="page__login">
+  <section>
+    <header>
+      <h2>
+        Log in with
+        <span class="brand">Spotify</span>
+      </h2>
+    </header>
+    <article>
+      <button class="btn btn-success btn-lg btn-block"
+              (click)="this.connect()"
+              [disabled]="this.isFormDisabled"
+      >Login</button>
+    </article>
+    <footer>
+      <p class="mb-0"><small>&copy; {{this.today | date:'yyyy'}} Spotify AB</small></p>
+    </footer>
+  </section>
+</main>

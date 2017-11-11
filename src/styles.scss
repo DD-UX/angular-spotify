@@ -6,3 +6,15 @@
 router-outlet{
   display: block;
 }
+
+.btn,
+a{
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn{
+  text-transform: uppercase;
+  font-variant: all-small-caps;
+  letter-spacing: 1px;
+}
