@@ -37,6 +37,11 @@ $black_overlay_bg: linear-gradient(transparent, $black);
 
     background: rgba($black, 0.6);
     border-radius: $border-radius-sm;
+
+    iframe{
+      visibility: hidden;
+      height: 0;
+    }
   }
   footer{
     text-align: right;

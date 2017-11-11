@@ -1,10 +1,7 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import * as App from '../app.config';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
 
-  connect () {
-    console.log("URL is: ", App.LOGIN_URL(['user-read-email']));
-  }
+  connect () { }
 }
