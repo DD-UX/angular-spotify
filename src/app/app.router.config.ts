@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import {FavoritesComponent} from './views/favorites/favorites.component';
+import { FavoritesComponent } from './views/favorites/favorites.component';
 import { LoginComponent } from './views/login/login.component';
 import { AccessTokenValidGuard } from './guards/access-token-valid.guard';
 
