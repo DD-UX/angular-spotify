@@ -2,7 +2,7 @@ import {
   Component, EventEmitter, OnInit, Output,
   ViewEncapsulation
 } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 import * as App from '../../app.config';
 
