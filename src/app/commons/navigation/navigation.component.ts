@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
   public navItems: NavItem[] = [
     {
       path: 'favorites',
-      name: 'Favorites'
+      name: 'Favorite Playlists'
     },
     {
       path: 'search',
@@ -27,6 +27,16 @@ export class NavigationComponent implements OnInit {
 
   // Active route
   public activeNav: string;
+
+  // Dropdown for users
+  public userDDactive: boolean = false;
+
+  toggle ($event): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    this.userDDactive = !this.userDDactive;
+  }
 
   constructor(private router: Router, public auth: AuthService) {
     this.router.events.subscribe((route: any) => {

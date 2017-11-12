@@ -11,3 +11,22 @@
 fdv-navigation + *{
   margin-top: $spacer * 6;
 }
+
+.navbar{
+  & &__user__image{
+    max-width: 30px;
+    margin-right: $spacer;
+  }
+
+  .dropdown{
+    position: relative;
+    .dropdown-menu{
+      border-radius: 0;
+      width: 100%;
+      position: absolute;
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
