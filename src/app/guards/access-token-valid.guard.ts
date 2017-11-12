@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
 
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable()
 export class AccessTokenValidGuard implements CanActivate {
@@ -22,7 +22,6 @@ export class AccessTokenValidGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-
     return this.auth.authInfo$
       .map(authInfo => authInfo.isLoggedIn())
       .take(1)

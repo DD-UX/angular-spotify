@@ -11,12 +11,12 @@ export const REDIRECT_BACK_TO = 'http://localhost:4200/';
 /*
  * URL to bring user's data
  */
-export const USER_URL = 'https://api.spotify.com/v1/me';
+export const USER_URL = 'https://api.spotify.com/v1';
 
 /*
  * Method to redirect the user into the login access screen
  */
-export const LOGIN_URL = (scopes:['user-read-email']) => {
+export const LOGIN_URL = (scopes:any) => {
 
   // Sample taken from http://jsfiddle.net/JMPerez/62wafrm7/
   return [
@@ -30,3 +30,9 @@ export const LOGIN_URL = (scopes:['user-read-email']) => {
   ].join("");
 
 };
+
+/*
+ * URL to bring user's data
+ */
+export const FEATURED_PLAYLISTS = '/browse/featured-playlists/';
+
