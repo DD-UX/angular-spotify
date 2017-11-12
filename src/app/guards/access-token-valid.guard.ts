@@ -22,7 +22,6 @@ export class AccessTokenValidGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-
     return this.auth.authInfo$
       .map(authInfo => authInfo.isLoggedIn())
       .take(1)

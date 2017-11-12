@@ -11,29 +11,11 @@ import * as _ from 'lodash';
   encapsulation: ViewEncapsulation.None
 })
 export class FavoritesComponent implements OnInit {
-  public favoritesList: Playlist = JSON.parse(localStorage.getItem('favorite_list')) || null;
 
-  constructor(private favorites: FavoritesService) {
-
-  }
-
-  getFavoritePlaylists (): void {
-    this.favorites.getList()
-      .subscribe (
-        data => {
-          this.favoritesList = data;
-          // Set local storage of token
-          localStorage.setItem('favorite_list', JSON.stringify(data));
-        },
-        error => {
-        }
-      );
-  }
+  constructor(private favorites: FavoritesService) {}
 
   ngOnInit() {
-    if (_.isNull(this.favoritesList) || this.favoritesList.items.length < 0) {
-      this.getFavoritePlaylists();
-    }
+    this.favorites.getList();
   }
 
 }

@@ -23,7 +23,7 @@ export class AuthService {
 
   static UNKNOW_USER = new AuthInfo(null);
 
-  authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOW_USER);
+  public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOW_USER);
 
   // Token map
   private token = new Map(JSON.parse(localStorage.getItem('spotify_token'))) || new Map ();
@@ -81,8 +81,7 @@ export class AuthService {
       })
       .subscribe (
         data => {
-          const authInfo = new AuthInfo(data);
-          this.authInfo$.next(authInfo);
+          this.authInfo$.next(new AuthInfo(data));
           subject.next(data);
           subject.complete();
           this.router.navigate(['/favorites']);
