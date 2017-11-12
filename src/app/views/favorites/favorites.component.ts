@@ -8,8 +8,8 @@ import {Playlist} from '../../models/favorites/playlist.model';
       <fdv-navigation></fdv-navigation>
       <div class="container">
         <ul *ngIf="!!favoritesList"
-            class="list-unstyled favorites__list row justify-content-around">
-          <li *ngFor="let playlist of favoritesList.playlists.items"
+            class="list-unstyled favorites__list row">
+          <li *ngFor="let playlist of favoritesList.items"
               class="media mt-4 d-flex flex-column col-6 align-items-center col-md-4 col-xl-3">
             <img class="mb-3 rounded-circle" [src]="playlist.images[0].url" [alt]="playlist.name">
             <div class="media-body">

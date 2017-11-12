@@ -1,11 +1,6 @@
 import { UserUrls, UserImage } from '../auth/user.model';
 
 export interface Playlist {
-  message: string;
-  playlists: Playlists;
-}
-
-export interface Playlists {
   href: string;
   items: PlaylistItem[];
   limit: number;

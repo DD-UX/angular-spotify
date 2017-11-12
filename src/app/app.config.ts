@@ -16,7 +16,7 @@ export const USER_URL = 'https://api.spotify.com/v1';
 /*
  * Method to redirect the user into the login access screen
  */
-export const LOGIN_URL = (scopes:['user-read-email']) => {
+export const LOGIN_URL = (scopes:any) => {
 
   // Sample taken from http://jsfiddle.net/JMPerez/62wafrm7/
   return [

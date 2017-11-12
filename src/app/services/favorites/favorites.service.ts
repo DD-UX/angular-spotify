@@ -15,7 +15,7 @@ export class FavoritesService {
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   getList () {
-    return this.http.get<Playlist>(App.USER_URL + App.FEATURED_PLAYLISTS, {
+    return this.http.get<Playlist>(App.USER_URL + '/me/playlists', {
       headers: this.auth.headers
     });
   }
