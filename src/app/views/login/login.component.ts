@@ -1,7 +1,4 @@
-import {
-  Component, EventEmitter, OnInit, Output,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 
 import * as App from '../../app.config';
@@ -20,11 +17,7 @@ export class LoginComponent implements OnInit {
   public isFormDisabled = false;
   public spotifyUrl = App.LOGIN_URL(['playlist-read-private user-read-email']);
 
-  constructor(private auth: AuthService) {
-  }
-
-  @Output()
-  click: EventEmitter<any> = new EventEmitter<any>();
+  constructor(private auth: AuthService) {}
 
   connect () {
     window.location.href = this.spotifyUrl;

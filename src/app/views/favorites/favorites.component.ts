@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {FavoritesService} from '../../services/favorites/favorites.service';
-import {Playlist} from '../../models/favorites/playlist.model';
-
-import * as _ from 'lodash';
 
 @Component({
   selector: 'fdv-favorites',
