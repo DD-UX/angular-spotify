@@ -7,11 +7,13 @@ import {Playlist} from '../../models/favorites/playlist.model';
     template: `
       <fdv-navigation></fdv-navigation>
       <div class="container">
-        <ul *ngIf="!!favoritesList"
+        <ul *ngIf="favoritesList.hasOwnProperty('items')"
             class="list-unstyled favorites__list row">
           <li *ngFor="let playlist of favoritesList.items"
               class="media mt-4 d-flex flex-column col-6 align-items-center col-md-4 col-xl-3">
-            <img class="mb-3 rounded-circle" [src]="playlist.images[0].url" [alt]="playlist.name">
+            <img class="mb-3 rounded-circle favorites__list__image" *ngIf="playlist.images.length > 0"
+                 [src]="playlist.images[0].url" [alt]="playlist.name">
+            <span class="favorites__list__image" *ngIf="playlist.images.length <= 0"></span>
             <div class="media-body">
               <h5 class="mb-2">{{playlist.name}}</h5>
             </div>

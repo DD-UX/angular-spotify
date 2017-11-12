@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 class AuthInfo {
-  constructor (public user: any) {}
+  constructor (public user: User) {}
 
   isLoggedIn () {
     return !_.isNull(this.user);

@@ -6,7 +6,7 @@ export interface Playlist {
   limit: number;
   next: string;
   offset: number;
-  previous: any;
+  previous: string;
   total: number;
 }
 
@@ -15,12 +15,20 @@ export interface PlaylistItem {
   external_urls: UserUrls;
   href: string;
   id: string;
-  images: UserImage[];
+  images: PlaylistImage[];
   name: string;
-  owner: any;
+  owner: Owner;
+  public: boolean;
+  snapshot_id: string;
   tracks: any;
   type: string;
   uri: string;
+}
+
+export interface PlaylistImage {
+  height: any;
+  url: string;
+  width: any;
 }
 
 export interface Owner {

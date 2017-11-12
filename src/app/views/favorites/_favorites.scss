@@ -1,6 +1,21 @@
+@import "~bootstrap/scss/_functions";
+@import "../../../scss/_bootstrap-variables";
+
+
+$prefix: '.favorites__list';
 .favorites__list{
-  img {
+  & &__image {
     max-width: 100px;
     box-shadow: 0 0 2px 1px rgba(#000, 0.1);
+    background: url(#{$spotify_logo}) no-repeat center center;
+    background-size: contain;
+  }
+
+  & span{
+    &#{$prefix}__image{
+      display: block;
+      width: 100%;
+      padding-top: 50%;
+    }
   }
 }

@@ -13,7 +13,7 @@ $black_overlay_bg: linear-gradient(transparent, $black);
   align-items: center;
 
   .brand{
-    background: url(#{$spotify_logo}) no-repeat;
+    background: url(#{$spotify_logo}) no-repeat center center;
     background-size: contain;
     text-indent: -9999px;
     padding-left: 132px;
