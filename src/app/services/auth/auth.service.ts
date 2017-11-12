@@ -88,6 +88,10 @@ export class AuthService {
           this.router.navigate(['/favorites']);
         },
         error => {
+          if (_.isEqual(error.status, 401)) {
+            localStorage.removeItem('spotify_token');
+            this.router.navigate(['/login']);
+          }
           this.authInfo$.error(error);
           subject.error(error);
           subject.complete();
