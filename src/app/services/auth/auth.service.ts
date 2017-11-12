@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 class AuthInfo {
-  constructor (public user: User) {}
+  constructor (public user: User | any) {}
 
   isLoggedIn () {
     return !_.isNull(this.user);
@@ -73,7 +73,6 @@ export class AuthService {
 
   // Retrieves user's data based on token stored or flags token is invalid
   login(): void {
-    const subject = new Subject<any>();
 
     this.http
       .get<User>(App.USER_URL + '/me', {
@@ -82,25 +81,27 @@ export class AuthService {
       .subscribe (
         data => {
           this.authInfo$.next(new AuthInfo(data));
-          subject.next(data);
-          subject.complete();
           this.router.navigate(['/favorites']);
         },
         error => {
+          console.log(error);
           if (_.isEqual(error.status, 401)) {
-            localStorage.removeItem('spotify_token');
+            this.destroyToken();
             this.router.navigate(['/login']);
           }
           this.authInfo$.error(error);
-          subject.error(error);
-          subject.complete();
         }
       );
   }
 
   logout(): void {
-    const authInfo = new AuthInfo(null);
-    this.authInfo$.next(authInfo);
+    this.destroyToken();
+    this.authInfo$.next(AuthService.UNKNOW_USER);
     this.router.navigate(['/login']);
+  }
+
+  destroyToken () {
+    localStorage.removeItem('spotify_token');
+    this.token = new Map();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from '../../models/navigation/nav-item.model';
 import * as _ from 'lodash';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'fdv-navigation',
@@ -27,12 +28,16 @@ export class NavigationComponent implements OnInit {
   // Active route
   public activeNav: string;
 
-  constructor(private _router: Router) {
-    this._router.events.subscribe((url:any) => {
-      if (!_.isUndefined(url.url)) {
-        this.activeNav = url.url.replace(/^\//, "");
+  constructor(private router: Router, public auth: AuthService) {
+    this.router.events.subscribe((route: any) => {
+      if (!_.isUndefined(route.url)) {
+        this.activeNav = route.url.replace(/^\//, '');
       }
     });
+  }
+
+  logout () {
+    this.auth.logout();
   }
 
   ngOnInit() {
