@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {FavoritesService} from '../../services/favorites/favorites.service';
 import {Playlist} from '../../models/favorites/playlist.model';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'fdv-favorites',
     templateUrl: './favorites.component.tpl.html',
@@ -15,7 +17,7 @@ export class FavoritesComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  getFavoritePlaylists (): void {
     this.favorites.getList()
       .subscribe (
         data => {
@@ -26,6 +28,12 @@ export class FavoritesComponent implements OnInit {
         error => {
         }
       );
+  }
+
+  ngOnInit() {
+    if (_.isNull(this.favoritesList) || this.favoritesList.items.length < 0) {
+      this.getFavoritePlaylists();
+    }
   }
 
 }
