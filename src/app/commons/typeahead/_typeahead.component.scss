@@ -11,15 +11,15 @@ $prefix: '.typeahead';
   & &__list{
     color: $success;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: $spacer * 2.5;
+    right: $spacer * 2.5;
     z-index: 1;
     max-height: 400px;
     overflow: auto;
 
     li{
       border-bottom: $gray-100;
-      background: $gray-700;
+      background: $gray-800;
       position: relative;
       &:after{
         content: "";

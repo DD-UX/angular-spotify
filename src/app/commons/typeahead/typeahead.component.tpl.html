@@ -5,20 +5,29 @@
            class="form-control form-control-lg"
            placeholder="Search for playlists"
            (change)="doSearch($event)" (keydown.enter)="doSearch($event)">
+
+    <ul class="typeahead__list list-unstyled">
+      <li *ngFor="let playlist of results$" class="media d-flex flex-row align-items-center">
+        <img class="typeahead__list__image" *ngIf="playlist.images.length > 0"
+             [src]="playlist.images[0].url" [alt]="playlist.name">
+
+        <span class="typeahead__list__image" *ngIf="playlist.images.length <= 0"></span>
+
+        <div class="media-body">
+          <h5 class="mb-2">{{playlist.name}}</h5>
+          <p class="mb-0">
+            <a [href]="playlist.owner.external_urls.spotify"
+               target="_blank" *ngIf="!!playlist.owner.display_name">{{playlist.owner.display_name}}</a>
+
+            <a [href]="playlist.owner.external_urls.spotify"
+               target="_blank" *ngIf="!playlist.owner.display_name">{{playlist.owner.id}}</a>
+          </p>
+        </div>
+      </li>
+
+      <!--<li class="text-center" *ngIf="results$ !== null && results$.length > 0">-->
+        <!--<small>No playlists match with your search.</small>-->
+      <!--</li>-->
+    </ul>
   </form>
-  <ul class="typeahead__list list-unstyled">
-    <li *ngFor="let playlist of results$" class="media d-flex flex-row align-items-center">
-      <img class="typeahead__list__image" *ngIf="playlist.images.length > 0"
-           [src]="playlist.images[0].url" [alt]="playlist.name">
-
-      <span class="typeahead__list__image" *ngIf="playlist.images.length <= 0"></span>
-
-      <div class="media-body">
-        <h5 class="mb-2">{{playlist.name}}</h5>
-        <p>
-          <a [href]="playlist.owner.external_urls.spotify" target="_blank">{{playlist.owner.display_name}}</a>
-        </p>
-      </div>
-    </li>
-  </ul>
 </section>
