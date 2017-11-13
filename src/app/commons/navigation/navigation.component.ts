@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component, HostListener, OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from '../../models/navigation/nav-item.model';
 import * as _ from 'lodash';
 import {AuthService} from '../../services/auth/auth.service';
+import {HostBinding} from '@angular/compiler/src/core';
 
 @Component({
   selector: 'fdv-navigation',
@@ -36,6 +40,12 @@ export class NavigationComponent implements OnInit {
     $event.stopPropagation();
 
     this.userDDactive = !this.userDDactive;
+  }
+
+  // Click on document closes the dropdown
+  @HostListener('document:click', ['$event'])
+  closeUserDD (event) {
+    this.userDDactive = false;
   }
 
   constructor(private router: Router, public auth: AuthService) {
