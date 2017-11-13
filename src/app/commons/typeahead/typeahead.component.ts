@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PlaylistsService } from '../../services/playlists/playlists.service';
+import { PlaylistItem} from '../../models/favorites/playlist.model';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'fdv-typeahead',
@@ -12,17 +14,26 @@ import 'rxjs/add/operator/do';
   encapsulation: ViewEncapsulation.None
 })
 export class TypeaheadComponent implements OnInit {
+  public loading = false;
+  public results$: Observable<PlaylistItem[]>;
 
   constructor(public playlists: PlaylistsService) {}
 
-  ngOnInit() {
-    this.playlists.search('weekend')
+  doSearch ($event): void {
+    $event.preventDefault();
+
+    this.loading = true;
+
+    this.playlists.search($event.target.value)
       .map(res => res.playlists.items)
       .subscribe (
-        data => {
-          console.log(data);
+        items => {
+          this.results$ = items;
+          this.loading = false;
         },
         error => error);
   }
+
+  ngOnInit() {}
 
 }

@@ -5,6 +5,6 @@ export class PlaylistInfo {
   constructor (public playlist: Playlist) {}
 
   hasItems () {
-    return !_.isNull(this.playlist);
+    return !_.isNull(this.playlist.items);
   }
 }

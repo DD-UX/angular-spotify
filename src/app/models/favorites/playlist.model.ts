@@ -1,4 +1,4 @@
-import { UserUrls, UserImage } from '../auth/user.model';
+import { UserUrls } from '../auth/user.model';
 
 export interface Playlist {
   href: string;

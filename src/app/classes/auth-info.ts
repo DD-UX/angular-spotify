@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import {Playlist} from '../models/favorites/playlist.model';
 import {User} from '../models/auth/user.model';
 
 export class AuthInfo {
@@ -8,5 +7,4 @@ export class AuthInfo {
   isLoggedIn () {
     return !_.isNull(this.user);
   }
-}
 }
