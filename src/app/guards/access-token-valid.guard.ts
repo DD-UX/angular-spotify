@@ -30,7 +30,7 @@ export class AccessTokenValidGuard implements CanActivate {
       _.isNull(this.auth.authInfo$.getValue().user)
       && this.auth.token.size > 0
     ) {
-      this.auth.checkToken();
+      this.auth.checkToken(); // Sets the headers and logins the user
       return true;
     }
 

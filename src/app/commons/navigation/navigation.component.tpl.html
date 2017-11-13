@@ -5,7 +5,7 @@
       <button class="btn btn-link nav-link" [routerLink]="[navItem.path]">{{navItem.name}}</button>
     </li>
   </ul>
-  <ul class="navbar-nav ml-auto">
+  <ul class="navbar-nav ml-auto" *ngIf="auth.authInfo$.getValue().user !== null">
     <li class="nav-item dropdown">
       <button class="btn btn-link nav-link dropdown-toggle d-flex flex-row align-items-center justify-content-end" (click)="toggle($event)">
         <img class="navbar__user__image"
