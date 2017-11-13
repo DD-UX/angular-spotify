@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import {AuthService} from '../auth/auth.service';
 
@@ -14,7 +14,7 @@ import 'rxjs/add/operator/do';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 class PlaylistInfo {
@@ -26,10 +26,10 @@ class PlaylistInfo {
 }
 
 @Injectable()
-export class FavoritesService {
+export class PlaylistsService {
   // Making playlist$ Observable
   static LOCAL_PLAYLIST = new PlaylistInfo(JSON.parse(localStorage.getItem('favorite_list')));
-  public playlist$: BehaviorSubject<PlaylistInfo> = new BehaviorSubject<PlaylistInfo>(FavoritesService.LOCAL_PLAYLIST);
+  public playlist$: BehaviorSubject<PlaylistInfo> = new BehaviorSubject<PlaylistInfo>(PlaylistsService.LOCAL_PLAYLIST);
 
   // Local definitions
   private token = new Map(JSON.parse(localStorage.getItem('spotify_token')));
@@ -50,17 +50,17 @@ export class FavoritesService {
     this.http.get<Playlist>(App.USER_URL + '/me/playlists', {
       headers: this.auth.headers
     })
-    .subscribe (
-    data => {
-      // Update observable with data
-      this.playlist$.next(new PlaylistInfo(data));
-      subject.next(data);
-      subject.complete();
+      .subscribe (
+        data => {
+          // Update observable with data
+          this.playlist$.next(new PlaylistInfo(data));
+          subject.next(data);
+          subject.complete();
 
-      // Set local storage of token
-      localStorage.setItem('favorite_list', JSON.stringify(data));
-    },
-    error => error);
+          // Set local storage of token
+          localStorage.setItem('favorite_list', JSON.stringify(data));
+        },
+        error => error);
   }
 
 }
