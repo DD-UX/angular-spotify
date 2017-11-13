@@ -41,34 +41,32 @@ export class AuthService {
       this.login();
     }
 
-    return this.listenTokenMessage();
+    return this.getTokenFromURL();
   }
 
   // Listens message sent from Spotify with token data
-  listenTokenMessage () {
-    window.addEventListener('message', () => {
-      // If no hash, exit
-      if (_.isEmpty(window.location.hash)) {
-        return false;
-      }
+  getTokenFromURL () {
+    // If no hash, exit
+    if (_.isEmpty(window.location.hash)) {
+      return false;
+    }
 
-      const url: any = window.location.hash
-        .replace(/^\#/, '')
-        .split('&');
+    const url: any = window.location.hash
+      .replace(/^\#/, '')
+      .split('&');
 
-      url.forEach((node) => {
-        const u: object = node.split('=');
-        this.token.set(u[0], u[1]);
-      });
+    url.forEach((node) => {
+      const u: object = node.split('=');
+      this.token.set(u[0], u[1]);
+    });
 
-      // Set local storage of token
-      localStorage.setItem('spotify_token', JSON.stringify(Array.from(this.token.entries())));
+    // Set local storage of token
+    localStorage.setItem('spotify_token', JSON.stringify(Array.from(this.token.entries())));
 
-      // Set headers
-      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get('access_token'));
+    // Set headers
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get('access_token'));
 
-      this.login();
-    }, false);
+    this.login();
   }
 
   // Retrieves user's data based on token stored or flags token is invalid
