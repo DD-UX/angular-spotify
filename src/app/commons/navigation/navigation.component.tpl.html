@@ -15,10 +15,19 @@
         <span class="text-white d-none d-md-inline-block">{{auth.authInfo$.getValue().user.display_name}}</span>
       </button>
       <div class="dropdown-menu dropdown-menu-right bg-success text-right" [ngClass]="{'show': userDDactive}">
-        <small class="d-block d-md-none p-1">
+        <small class="navbar__user__name d-block d-md-none p-1">
           <b>{{auth.authInfo$.getValue().user.display_name}}</b>
         </small>
-        <button class="btn btn-link btn-block nav-link text-right" (click)="logout()">Logout</button>
+
+        <hr class="d-block d-md-none">
+
+        <button *ngFor="let navItem of this.navItems"
+                class="btn btn-link btn-block nav-link text-right p-1 d-block d-sm-none"
+                [routerLink]="[navItem.path]">{{navItem.name}}</button>
+
+        <hr class="d-block d-sm-none">
+
+        <button class="btn btn-link btn-block nav-link text-right p-1" (click)="logout()">Logout</button>
       </div>
     </li>
   </ul>
