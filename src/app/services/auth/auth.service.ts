@@ -8,15 +8,7 @@ import { User } from '../../models/auth/user.model';
 import * as App from '../../app.config';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-
-@Injectable()
-class AuthInfo {
-  constructor (public user: User | any) {}
-
-  isLoggedIn () {
-    return !_.isNull(this.user);
-  }
-}
+import {AuthInfo} from '../../classes/auth-info';
 
 @Injectable()
 export class AuthService {

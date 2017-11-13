@@ -9,10 +9,10 @@ import { PlaylistsService } from '../../services/playlists/playlists.service';
 })
 export class FavoritesComponent implements OnInit {
 
-  constructor(public favorites: PlaylistsService) {}
+  constructor(public playlists: PlaylistsService) {}
 
   ngOnInit() {
-    this.favorites.getList();
+    this.playlists.getList();
   }
 
 }

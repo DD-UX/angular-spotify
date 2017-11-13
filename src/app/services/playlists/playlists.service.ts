@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {AuthService} from '../auth/auth.service';
 
 import { Playlist } from '../../models/favorites/playlist.model';
+import { PlaylistInfo } from '../../classes/playlist-info';
 
 import * as App from '../../app.config';
 import * as _ from 'lodash';
@@ -13,23 +14,13 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-
-@Injectable()
-class PlaylistInfo {
-  constructor (public playlist: Playlist) {}
-
-  hasItems () {
-    return !_.isNull(this.playlist);
-  }
-}
 
 @Injectable()
 export class PlaylistsService {
   // Making playlist$ Observable
-  static LOCAL_PLAYLIST = new PlaylistInfo(JSON.parse(localStorage.getItem('favorite_list')));
-  public playlist$: BehaviorSubject<PlaylistInfo> = new BehaviorSubject<PlaylistInfo>(PlaylistsService.LOCAL_PLAYLIST);
+  static LOCAL_PLAYLISTS = new PlaylistInfo(JSON.parse(localStorage.getItem('favorite_list')));
+  public playlist$: BehaviorSubject<PlaylistInfo> = new BehaviorSubject<PlaylistInfo>(PlaylistsService.LOCAL_PLAYLISTS);
 
   // Local definitions
   private token = new Map(JSON.parse(localStorage.getItem('spotify_token')));
@@ -45,8 +36,6 @@ export class PlaylistsService {
     }
 
     // Get playlist from API
-    const subject = new Subject<any>();
-
     this.http.get<Playlist>(App.USER_URL + '/me/playlists', {
       headers: this.auth.headers
     })
@@ -54,8 +43,6 @@ export class PlaylistsService {
         data => {
           // Update observable with data
           this.playlist$.next(new PlaylistInfo(data));
-          subject.next(data);
-          subject.complete();
 
           // Set local storage of token
           localStorage.setItem('favorite_list', JSON.stringify(data));
@@ -63,4 +50,13 @@ export class PlaylistsService {
         error => error);
   }
 
+  search (term: string): Observable<any> | Promise<any> | any {
+    return this.http.get<Playlist>(App.USER_URL + '/search', {
+      headers: this.auth.headers,
+      params: {
+        type: 'playlist',
+        q: term
+      }
+    });
+  }
 }
