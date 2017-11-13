@@ -11,7 +11,7 @@ import 'rxjs/add/operator/do';
 
 import * as _ from 'lodash';
 
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class AccessTokenValidGuard implements CanActivate {

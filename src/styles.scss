@@ -3,10 +3,6 @@
 @import "./scss/_bootstrap-variables";
 @import "~bootstrap/scss/bootstrap";
 
-router-outlet{
-  display: block;
-}
-
 .btn,
 a{
   cursor: pointer;

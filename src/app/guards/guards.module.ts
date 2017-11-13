@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccessTokenValidGuard } from './access-token-valid.guard';
+import { AccessTokenValidGuard } from './access-token-valid/access-token-valid.guard';
 
 @NgModule({
   imports: [
