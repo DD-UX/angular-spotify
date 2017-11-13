@@ -29,7 +29,7 @@ export class NavigationComponent implements OnInit {
   public activeNav: string;
 
   // Dropdown for users
-  public userDDactive: boolean = false;
+  public userDDactive = false;
 
   toggle ($event): void {
     $event.preventDefault();
