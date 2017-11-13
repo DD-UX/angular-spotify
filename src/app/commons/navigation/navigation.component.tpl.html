@@ -2,7 +2,7 @@
   <a class="navbar-brand" href="#">Spotify</a>
   <ul class="navbar-nav mr-auto d-none d-sm-flex flex-sm-nowrap flex-sm-row">
     <li *ngFor="let navItem of this.navItems" class="nav-item p-1" [ngClass]="{'active': (this.activeNav === navItem.path)}">
-      <button class="btn btn-link nav-link" routerLink="navItem.path">{{navItem.name}}</button>
+      <button class="btn btn-link nav-link" [routerLink]="[navItem.path]">{{navItem.name}}</button>
     </li>
   </ul>
   <ul class="navbar-nav ml-auto">

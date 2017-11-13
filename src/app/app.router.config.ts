@@ -6,6 +6,10 @@ import { AccessTokenValidGuard } from './guards/access-token-valid.guard';
 
 export const RouterConfig: Route[] = [
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'search',
     component: SearchComponent,
     canActivate: [ AccessTokenValidGuard ]
@@ -16,12 +20,12 @@ export const RouterConfig: Route[] = [
     canActivate: [ AccessTokenValidGuard ]
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    redirectTo: 'login'
   }
 ];
