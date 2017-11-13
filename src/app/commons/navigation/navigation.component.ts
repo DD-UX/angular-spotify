@@ -16,11 +16,11 @@ export class NavigationComponent implements OnInit {
   // Navigation elements
   public navItems: NavItem[] = [
     {
-      path: 'favorites',
+      path: '/favorites',
       name: 'Favorite Playlists'
     },
     {
-      path: 'search',
+      path: '/search',
       name: 'Search'
     }
   ];
@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit {
   constructor(private router: Router, public auth: AuthService) {
     this.router.events.subscribe((route: any) => {
       if (!_.isUndefined(route.url)) {
-        this.activeNav = route.url.replace(/^\//, '');
+        this.activeNav = route.url;
       }
     });
   }
