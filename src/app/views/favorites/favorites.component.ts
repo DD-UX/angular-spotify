@@ -9,7 +9,7 @@ import {FavoritesService} from '../../services/favorites/favorites.service';
 })
 export class FavoritesComponent implements OnInit {
 
-  constructor(private favorites: FavoritesService) {}
+  constructor(public favorites: FavoritesService) {}
 
   ngOnInit() {
     this.favorites.getList();
