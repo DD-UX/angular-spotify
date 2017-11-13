@@ -81,11 +81,11 @@ export class AuthService {
       .subscribe (
         data => {
           this.authInfo$.next(new AuthInfo(data));
-          console.log(this.router);
-          // this.router.navigate(['/favorites']);
+          if (this.router.url.match(/^\/login/) ) {
+            this.router.navigate(['/favorites']);
+          }
         },
         error => {
-          console.log(error);
           if (_.isEqual(error.status, 401)) {
             this.destroyToken();
             this.router.navigate(['/login']);
