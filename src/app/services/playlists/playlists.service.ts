@@ -45,8 +45,13 @@ export class PlaylistsService {
     this.http.get<Playlist>(url, {
       headers: this.auth.headers
     })
+      .map(pl => {
+        pl.items.forEach(item => item.isActive = true)
+        return pl;
+      })
       .subscribe (
         data => {
+          console.log(data);
           // Update observable with data
           this.playlist$.next(new PlaylistInfo(data));
 

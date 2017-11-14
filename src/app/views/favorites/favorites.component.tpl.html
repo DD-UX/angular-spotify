@@ -7,6 +7,7 @@
       class="list-unstyled favorites__list row">
     <li *ngFor="let playlist of playlists.playlist$.getValue().playlist.items"
         class="media mt-4 d-flex flex-column col-6 align-items-center col-md-4 col-xl-3">
+      <fdv-toggle [playlist]="playlist"></fdv-toggle>
       <img class="mb-3 rounded-circle favorites__list__image" *ngIf="playlist.images.length > 0"
            [src]="playlist.images[0].url" [alt]="playlist.name">
       <span class="favorites__list__image" *ngIf="playlist.images.length <= 0"></span>

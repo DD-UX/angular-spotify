@@ -4,12 +4,16 @@ import {PlaylistsService} from '../../services/playlists/playlists.service';
 @Component({
   selector: 'fdv-toggle',
   template: `
-    <div (click)="setFavorite(playlist)">
+    <div (click)="setFavorite(playlist)" class="pr-4 pl-2 text-warning fdvToggle">
       <i *ngIf="playlist.isActive" class="fa fa-star fa-2x"></i>
       <i *ngIf="!playlist.isActive" class="fa fa-star-o fa-2x"></i>
     </div>
   `,
-  styles: [],
+  styles: [`
+    .fdvToggle {
+      cursor: pointer;
+    }
+  `],
   encapsulation: ViewEncapsulation.None
 })
 export class ToggleComponent implements OnInit {
