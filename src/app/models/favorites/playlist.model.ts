@@ -23,6 +23,7 @@ export interface PlaylistItem {
   tracks: any;
   type: string;
   uri: string;
+  isActive: boolean;
 }
 
 export interface PlaylistImage {

@@ -51,7 +51,6 @@ export class PlaylistsService {
       })
       .subscribe (
         data => {
-          console.log(data);
           // Update observable with data
           this.playlist$.next(new PlaylistInfo(data));
 
