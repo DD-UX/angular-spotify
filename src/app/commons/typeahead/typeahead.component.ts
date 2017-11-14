@@ -46,10 +46,8 @@ export class TypeaheadComponent implements OnInit {
   }
 
   setFavorite (playlist) {
-    const list = this.favoritesList.filter(pl => pl.id === playlist.id);
-    console.log('Matched: ', list);
-    // console.log('current lists', this.favoritesList);
-    // console.log('new playlist', playlist);
+    const list = this.favoritesList.find(pl => pl.id === playlist.id);
+    const isInFavorites = Boolean(list);
   }
 
   constructor(public playlists: PlaylistsService) {}
@@ -76,8 +74,6 @@ export class TypeaheadComponent implements OnInit {
               items.map(item => {
                 item.isActive = Boolean(this.favoritesList.find(pl => pl.id === item.id));
               });
-
-              console.log(items);
 
               this.listVisible = items.length > 0;
               this.noResults = items.length < 1;
