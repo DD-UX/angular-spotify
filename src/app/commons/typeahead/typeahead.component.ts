@@ -45,34 +45,6 @@ export class TypeaheadComponent implements OnInit {
     this.noResults = this.results$.length < 1;
   }
 
-  setFavorite (playlist) {
-    const that = this;
-    const playlistFound = this.favoritesList.find(pl => pl.id === playlist.id);
-    const isInFavorites = Boolean(playlistFound);
-
-    if (isInFavorites) {
-      this.playlists.removeFromFavorites(playlist)
-        .subscribe(
-          res => {
-            this.playlists.removePlaylistLocal(res, playlist);
-          },
-          error => {
-            this.playlists.removePlaylistLocal(error, playlist);
-          }
-        );
-    } else {
-      this.playlists.addToFavorites(playlist)
-        .subscribe(
-          res => {
-            this.playlists.addPlaylistLocal(res, playlist);
-          },
-          error => {
-            this.playlists.addPlaylistLocal(error, playlist);
-          }
-        );
-    }
-  }
-
   constructor(public playlists: PlaylistsService) {}
 
   ngOnInit() {

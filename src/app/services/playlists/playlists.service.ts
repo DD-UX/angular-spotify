@@ -92,9 +92,6 @@ export class PlaylistsService {
 
   removeFromFavorites (playlist: any): Observable<any> | Promise<any> | any {
     const url = `${App.USER_URL}/users/${playlist.owner.id}/playlists/${playlist.id}/followers`;
-    const body = {
-      contentType: 'application/json'
-    };
 
     return this.http.delete<Playlist | any>(url, {
       headers: this.auth.headers
@@ -107,9 +104,7 @@ export class PlaylistsService {
 
     if (res.status === 200) {
       playlist.isActive = false;
-      console.log(playlists.items);
       _.remove(playlists.items, pl => pl.id === playlist.id);
-      console.log(playlists.items);
       this.updateLocalList(playlists);
     }
   }

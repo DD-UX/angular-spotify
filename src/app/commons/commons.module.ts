@@ -4,6 +4,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { RouterModule } from '@angular/router';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ToggleComponent } from './toggle/toggle.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [NavigationComponent, TypeaheadComponent],
-  exports: [NavigationComponent, TypeaheadComponent]
+  declarations: [NavigationComponent, TypeaheadComponent, ToggleComponent],
+  exports: [NavigationComponent, TypeaheadComponent, ToggleComponent]
 })
 export class CommonsModule { }
