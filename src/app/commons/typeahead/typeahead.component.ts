@@ -11,6 +11,8 @@ import * as _ from 'lodash';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/find';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
@@ -26,6 +28,7 @@ export class TypeaheadComponent implements OnInit {
   public results$: Observable<PlaylistItem[]> | any = [];
   public listVisible = false;
   public noResults = false;
+  private favoritesList: any = this.playlists.playlist$.getValue().playlist.items;
 
   // Click on document closes the dropdown
   @HostListener('document:click', ['$event'])
@@ -40,6 +43,13 @@ export class TypeaheadComponent implements OnInit {
   openSearchList () {
     this.listVisible = this.results$.length > 0;
     this.noResults = this.results$.length < 1;
+  }
+
+  setFavorite (playlist) {
+    const list = this.favoritesList.filter(pl => pl.id === playlist.id);
+    console.log('Matched: ', list);
+    // console.log('current lists', this.favoritesList);
+    // console.log('new playlist', playlist);
   }
 
   constructor(public playlists: PlaylistsService) {}
@@ -63,6 +73,12 @@ export class TypeaheadComponent implements OnInit {
           .do(_ => this.loading = false)
           .subscribe (
             items => {
+              items.map(item => {
+                item.isActive = Boolean(this.favoritesList.find(pl => pl.id === item.id));
+              });
+
+              console.log(items);
+
               this.listVisible = items.length > 0;
               this.noResults = items.length < 1;
               this.results$ = items;
