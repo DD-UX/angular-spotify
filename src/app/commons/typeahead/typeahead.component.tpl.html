@@ -4,7 +4,7 @@
     <input id="searchPlaylists" type="search"
            class="form-control form-control-lg"
            placeholder="Search for playlists"
-           (change)="doSearch($event)" (keydown.enter)="doSearch($event)">
+           [formControl]="searchField">
 
     <ul class="typeahead__list list-unstyled">
       <li *ngFor="let playlist of results$" class="media d-flex flex-row align-items-center">
