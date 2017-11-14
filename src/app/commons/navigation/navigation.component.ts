@@ -44,6 +44,7 @@ export class NavigationComponent implements OnInit {
 
   // Click on document closes the dropdown
   @HostListener('document:click', ['$event'])
+  @HostListener('document:touchstart', ['$event'])
   closeUserDD (event) {
     this.userDDactive = false;
   }

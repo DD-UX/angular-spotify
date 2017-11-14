@@ -4,9 +4,10 @@
     <input id="searchPlaylists" type="search"
            class="form-control form-control-lg"
            placeholder="Search for playlists"
-           [formControl]="searchField">
+           [formControl]="searchField"
+           (focus)="openSearchList()">
 
-    <ul class="typeahead__list list-unstyled">
+    <ul class="typeahead__list list-unstyled" *ngIf="listVisible">
       <li *ngFor="let playlist of results$" class="media d-flex flex-row align-items-center">
         <img class="typeahead__list__image" *ngIf="playlist.images.length > 0"
              [src]="playlist.images[0].url" [alt]="playlist.name">
@@ -24,10 +25,12 @@
           </p>
         </div>
       </li>
+    </ul>
 
-      <!--<li class="text-center" *ngIf="results$ !== null && results$.length > 0">-->
-        <!--<small>No playlists match with your search.</small>-->
-      <!--</li>-->
+    <ul class="typeahead__list list-unstyled" *ngIf="noResults">
+      <li class="text-center">
+        <small>No playlists match with your search.</small>
+      </li>
     </ul>
   </form>
 </section>
