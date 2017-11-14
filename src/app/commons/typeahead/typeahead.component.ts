@@ -28,7 +28,7 @@ export class TypeaheadComponent implements OnInit {
   public results$: Observable<PlaylistItem[]> | any = [];
   public listVisible = false;
   public noResults = false;
-  private favoritesList: any = this.playlists.playlist$.getValue().playlist.items;
+  private favoritesList: any;
 
   // Click on document closes the dropdown
   @HostListener('document:click', ['$event'])
@@ -46,8 +46,34 @@ export class TypeaheadComponent implements OnInit {
   }
 
   setFavorite (playlist) {
-    const list = this.favoritesList.find(pl => pl.id === playlist.id);
-    const isInFavorites = Boolean(list);
+    const that = this;
+    const playlistFound = this.favoritesList.find(pl => pl.id === playlist.id);
+    const isInFavorites = Boolean(playlistFound);
+
+    if (isInFavorites) {
+      console.log('Removing from favorites');
+    } else {
+      this.playlists.addToFavorites(playlist)
+        .subscribe(
+          res => {
+            add(res);
+          },
+          error => {
+            add(error);
+          }
+        );
+    }
+
+    function add (res) {
+      if (res.status === 200) {
+        playlist.isActive = true;
+        that.favoritesList.unshift(playlist);
+        localStorage.setItem(
+          'favorite_list',
+          JSON.stringify(that.playlists.playlist$.getValue().playlist)
+        );
+      }
+    }
   }
 
   constructor(public playlists: PlaylistsService) {}
@@ -71,6 +97,9 @@ export class TypeaheadComponent implements OnInit {
           .do(_ => this.loading = false)
           .subscribe (
             items => {
+              // Get list of favorite playlist in the local scope
+              this.favoritesList = this.playlists.playlist$.getValue().playlist.items;
+
               items.map(item => {
                 item.isActive = Boolean(this.favoritesList.find(pl => pl.id === item.id));
               });
@@ -79,7 +108,9 @@ export class TypeaheadComponent implements OnInit {
               this.noResults = items.length < 1;
               this.results$ = items;
             },
-            error => error
+            error => {
+              console.log(error);
+            }
           );
       });
 

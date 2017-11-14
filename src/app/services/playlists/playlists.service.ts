@@ -36,7 +36,9 @@ export class PlaylistsService {
     }
 
     // Get playlist from API
-    this.http.get<Playlist>(App.USER_URL + '/me/playlists', {
+    const url = `${App.USER_URL}/me/playlists`;
+
+    this.http.get<Playlist>(url, {
       headers: this.auth.headers
     })
       .subscribe (
@@ -51,12 +53,27 @@ export class PlaylistsService {
   }
 
   search (term: string): Observable<any> | Promise<any> | any {
-    return this.http.get<Playlist>(App.USER_URL + '/search', {
+    const url = `${App.USER_URL}/search`;
+
+    return this.http.get<Playlist>(url, {
       headers: this.auth.headers,
       params: {
         type: 'playlist',
         q: term
       }
     });
+  }
+
+  addToFavorites (playlist: any): Observable<any> | Promise<any> | any {
+    const url = `${App.USER_URL}/users/${playlist.owner.id}/playlists/${playlist.id}/followers`;
+    const body = {
+      contentType: 'application/json',
+      responseType: 'text'
+    };
+
+    return this.http.put<Playlist | any>(url, body, {
+      headers: this.auth.headers
+    })
+    .map(response => response.json());
   }
 }
