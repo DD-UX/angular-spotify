@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
 
 import { User } from '../../models/auth/user.model';
 
 import * as App from '../../app.config';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
-
-@Injectable()
-class AuthInfo {
-  constructor (public user: User | any) {}
-
-  isLoggedIn () {
-    return !_.isNull(this.user);
-  }
-}
+import {AuthInfo} from '../../classes/auth-info';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +17,7 @@ export class AuthService {
   public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOW_USER);
 
   // Token map
-  private token = new Map(JSON.parse(localStorage.getItem('spotify_token'))) || new Map ();
+  public token = new Map(JSON.parse(localStorage.getItem('spotify_token'))) || new Map ();
 
   public headers: any;
 
@@ -39,9 +30,11 @@ export class AuthService {
       this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get('access_token'));
 
       this.login();
+
+      return false;
     }
 
-    return this.getTokenFromURL();
+    this.getTokenFromURL();
   }
 
   // Listens message sent from Spotify with token data
@@ -79,10 +72,11 @@ export class AuthService {
       .subscribe (
         data => {
           this.authInfo$.next(new AuthInfo(data));
-          this.router.navigate(['/favorites']);
+          if (this.router.url.match(/^\/login/) ) {
+            this.router.navigate(['/favorites']);
+          }
         },
         error => {
-          console.log(error);
           if (_.isEqual(error.status, 401)) {
             this.destroyToken();
             this.router.navigate(['/login']);

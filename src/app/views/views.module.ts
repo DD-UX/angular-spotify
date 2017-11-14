@@ -5,6 +5,7 @@ import { ServicesModule } from '../services/services.module';
 
 import { FavoritesComponent } from './favorites/favorites.component';
 import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,6 @@ import { LoginComponent } from './login/login.component';
     CommonsModule,
     ServicesModule
   ],
-  declarations: [FavoritesComponent, LoginComponent],
-  exports: [FavoritesComponent]
+  declarations: [FavoritesComponent, LoginComponent, SearchComponent]
 })
 export class ViewsModule { }

@@ -10,6 +10,7 @@
 
 fdv-navigation + *{
   margin-top: $spacer * 6;
+  display: block;
 }
 
 .navbar{
@@ -18,11 +19,15 @@ fdv-navigation + *{
     margin-right: $spacer;
   }
 
+  & &__user__name{
+    white-space: nowrap;
+  }
+
   .dropdown{
     position: relative;
     .dropdown-menu{
       border-radius: 0;
-      width: 100%;
+      min-width: 100%;
       position: absolute;
       left: auto;
       right: 0;

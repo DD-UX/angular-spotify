@@ -2,10 +2,10 @@
   <a class="navbar-brand" href="#">Spotify</a>
   <ul class="navbar-nav mr-auto d-none d-sm-flex flex-sm-nowrap flex-sm-row">
     <li *ngFor="let navItem of this.navItems" class="nav-item p-1" [ngClass]="{'active': (this.activeNav === navItem.path)}">
-      <button class="btn btn-link nav-link" routerLink="navItem.path">{{navItem.name}}</button>
+      <button class="btn btn-link nav-link" [routerLink]="[navItem.path]">{{navItem.name}}</button>
     </li>
   </ul>
-  <ul class="navbar-nav ml-auto">
+  <ul class="navbar-nav ml-auto" *ngIf="auth.authInfo$.getValue().user !== null">
     <li class="nav-item dropdown">
       <button class="btn btn-link nav-link dropdown-toggle d-flex flex-row align-items-center justify-content-end" (click)="toggle($event)">
         <img class="navbar__user__image"
@@ -15,10 +15,19 @@
         <span class="text-white d-none d-md-inline-block">{{auth.authInfo$.getValue().user.display_name}}</span>
       </button>
       <div class="dropdown-menu dropdown-menu-right bg-success text-right" [ngClass]="{'show': userDDactive}">
-        <small class="d-block d-md-none p-1">
+        <small class="navbar__user__name d-block d-md-none p-1">
           <b>{{auth.authInfo$.getValue().user.display_name}}</b>
         </small>
-        <button class="btn btn-link btn-block nav-link text-right" (click)="logout()">Logout</button>
+
+        <hr class="d-block d-md-none">
+
+        <button *ngFor="let navItem of this.navItems"
+                class="btn btn-link btn-block nav-link text-right p-1 d-block d-sm-none"
+                [routerLink]="[navItem.path]">{{navItem.name}}</button>
+
+        <hr class="d-block d-sm-none">
+
+        <button class="btn btn-link btn-block nav-link text-right p-1" (click)="logout()">Logout</button>
       </div>
     </li>
   </ul>

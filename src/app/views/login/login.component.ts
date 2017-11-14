@@ -15,7 +15,7 @@ import * as App from '../../app.config';
 export class LoginComponent implements OnInit {
   public today: Date = new Date();
   public isFormDisabled = false;
-  public spotifyUrl = App.LOGIN_URL(['playlist-read-private user-read-email']);
+  public spotifyUrl = App.LOGIN_URL(['playlist-modify-public playlist-read-private playlist-modify-private user-read-email']);
 
   constructor(private auth: AuthService) {}
 

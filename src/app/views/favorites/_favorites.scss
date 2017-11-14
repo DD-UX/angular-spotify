@@ -4,6 +4,15 @@
 
 $prefix: '.favorites__list';
 .favorites__list{
+  position: relative;
+
+  fdv-toggle{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-100%);
+    text-shadow: 1px 1px 1px rgba($black, 0.6);
+  }
   & img#{$prefix}__image{
     box-shadow: 0 0 2px 1px rgba(#000, 0.1);
   }

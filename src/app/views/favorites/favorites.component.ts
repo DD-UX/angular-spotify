@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {FavoritesService} from '../../services/favorites/favorites.service';
+import { PlaylistsService } from '../../services/playlists/playlists.service';
 
 @Component({
   selector: 'fdv-favorites',
@@ -9,10 +9,10 @@ import {FavoritesService} from '../../services/favorites/favorites.service';
 })
 export class FavoritesComponent implements OnInit {
 
-  constructor(public favorites: FavoritesService) {}
+  constructor(public playlists: PlaylistsService) {}
 
   ngOnInit() {
-    this.favorites.getList();
+    this.playlists.getList();
   }
 
 }

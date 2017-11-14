@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component, HostListener, OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from '../../models/navigation/nav-item.model';
 import * as _ from 'lodash';
 import {AuthService} from '../../services/auth/auth.service';
+import {HostBinding} from '@angular/compiler/src/core';
 
 @Component({
   selector: 'fdv-navigation',
@@ -16,11 +20,11 @@ export class NavigationComponent implements OnInit {
   // Navigation elements
   public navItems: NavItem[] = [
     {
-      path: 'favorites',
+      path: '/favorites',
       name: 'Favorite Playlists'
     },
     {
-      path: 'search',
+      path: '/search',
       name: 'Search'
     }
   ];
@@ -29,7 +33,7 @@ export class NavigationComponent implements OnInit {
   public activeNav: string;
 
   // Dropdown for users
-  public userDDactive: boolean = false;
+  public userDDactive = false;
 
   toggle ($event): void {
     $event.preventDefault();
@@ -38,10 +42,17 @@ export class NavigationComponent implements OnInit {
     this.userDDactive = !this.userDDactive;
   }
 
+  // Click on document closes the dropdown
+  @HostListener('document:click', ['$event'])
+  @HostListener('document:touchstart', ['$event'])
+  closeUserDD (event) {
+    this.userDDactive = false;
+  }
+
   constructor(private router: Router, public auth: AuthService) {
     this.router.events.subscribe((route: any) => {
       if (!_.isUndefined(route.url)) {
-        this.activeNav = route.url.replace(/^\//, '');
+        this.activeNav = route.url;
       }
     });
   }

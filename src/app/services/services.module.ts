@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FavoritesService } from './favorites/favorites.service';
+import { PlaylistsService } from './playlists/playlists.service';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { FavoritesService } from './favorites/favorites.service';
   ],
   providers: [
     AuthService,
-    FavoritesService
+    PlaylistsService
   ]
 })
 export class ServicesModule { }

@@ -1,4 +1,4 @@
-import { UserUrls, UserImage } from '../auth/user.model';
+import { UserUrls } from '../auth/user.model';
 
 export interface Playlist {
   href: string;
@@ -23,6 +23,7 @@ export interface PlaylistItem {
   tracks: any;
   type: string;
   uri: string;
+  isActive: boolean;
 }
 
 export interface PlaylistImage {
