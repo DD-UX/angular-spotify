@@ -28,6 +28,10 @@ export class PlaylistsService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
+  updateLocalList (data) {
+    localStorage.setItem('favorite_list', JSON.stringify(data));
+  }
+
   getList (): Observable<any> | Promise<any> | any {
 
     // If playlist is locally stored, return
@@ -47,7 +51,7 @@ export class PlaylistsService {
           this.playlist$.next(new PlaylistInfo(data));
 
           // Set local storage of token
-          localStorage.setItem('favorite_list', JSON.stringify(data));
+          this.updateLocalList(data);
         },
         error => error);
   }
@@ -67,13 +71,46 @@ export class PlaylistsService {
   addToFavorites (playlist: any): Observable<any> | Promise<any> | any {
     const url = `${App.USER_URL}/users/${playlist.owner.id}/playlists/${playlist.id}/followers`;
     const body = {
-      contentType: 'application/json',
-      responseType: 'text'
+      contentType: 'application/json'
     };
 
     return this.http.put<Playlist | any>(url, body, {
       headers: this.auth.headers
     })
-    .map(response => response.json());
+      .map(response => response.json());
+  }
+
+  addPlaylistLocal (res, playlist): void {
+    const playlists = this.playlist$.getValue().playlist;
+
+    if (res.status === 200) {
+      playlist.isActive = true;
+      playlists.items.unshift(playlist);
+      this.updateLocalList(playlists);
+    }
+  }
+
+  removeFromFavorites (playlist: any): Observable<any> | Promise<any> | any {
+    const url = `${App.USER_URL}/users/${playlist.owner.id}/playlists/${playlist.id}/followers`;
+    const body = {
+      contentType: 'application/json'
+    };
+
+    return this.http.delete<Playlist | any>(url, {
+      headers: this.auth.headers
+    })
+      .map(response => response.json());
+  }
+
+  removePlaylistLocal (res, playlist): void {
+    const playlists = this.playlist$.getValue().playlist;
+
+    if (res.status === 200) {
+      playlist.isActive = false;
+      console.log(playlists.items);
+      _.remove(playlists.items, pl => pl.id === playlist.id);
+      console.log(playlists.items);
+      this.updateLocalList(playlists);
+    }
   }
 }

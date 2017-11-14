@@ -51,28 +51,25 @@ export class TypeaheadComponent implements OnInit {
     const isInFavorites = Boolean(playlistFound);
 
     if (isInFavorites) {
-      console.log('Removing from favorites');
+      this.playlists.removeFromFavorites(playlist)
+        .subscribe(
+          res => {
+            this.playlists.removePlaylistLocal(res, playlist);
+          },
+          error => {
+            this.playlists.removePlaylistLocal(error, playlist);
+          }
+        );
     } else {
       this.playlists.addToFavorites(playlist)
         .subscribe(
           res => {
-            add(res);
+            this.playlists.addPlaylistLocal(res, playlist);
           },
           error => {
-            add(error);
+            this.playlists.addPlaylistLocal(error, playlist);
           }
         );
-    }
-
-    function add (res) {
-      if (res.status === 200) {
-        playlist.isActive = true;
-        that.favoritesList.unshift(playlist);
-        localStorage.setItem(
-          'favorite_list',
-          JSON.stringify(that.playlists.playlist$.getValue().playlist)
-        );
-      }
     }
   }
 

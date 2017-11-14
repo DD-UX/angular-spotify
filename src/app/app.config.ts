@@ -31,9 +31,3 @@ export const LOGIN_URL = (scopes: any) => {
   ].join('');
 
 };
-
-/*
- * URL to bring user's data
- */
-export const FEATURED_PLAYLISTS = '/browse/featured-playlists/';
-
