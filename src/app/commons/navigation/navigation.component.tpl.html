@@ -5,7 +5,11 @@
       <button class="btn btn-link nav-link" [routerLink]="[navItem.path]">{{navItem.name}}</button>
     </li>
   </ul>
-  <ul class="navbar-nav ml-auto" *ngIf="auth.authInfo$.getValue().user !== null">
+  <ul class="navbar-nav ml-auto d-flex flex-row align-items-center"
+      *ngIf="auth.authInfo$.getValue().user !== null">
+    <li class="nav-item mr-3" *ngIf="isFavoritesView()">
+      <fdv-reload-playlist></fdv-reload-playlist>
+    </li>
     <li class="nav-item dropdown">
       <button class="btn btn-link nav-link dropdown-toggle d-flex flex-row align-items-center justify-content-end" (click)="toggle($event)">
         <img class="navbar__user__image"
