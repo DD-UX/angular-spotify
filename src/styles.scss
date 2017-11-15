@@ -21,11 +21,11 @@ body{
     &:before{
       content: "";
       display: block;
-      width: 100vw;
-      height: 100vw;
       position: fixed;
       top: 0;
       left: 0;
+      bottom: 0;
+      right: 0;
       z-index: $zindex-modal-backdrop;
       background: rgba($black, 0.6);
     }

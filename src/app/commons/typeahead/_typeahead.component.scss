@@ -16,6 +16,7 @@ $prefix: '.typeahead';
     z-index: 1;
     max-height: 400px;
     overflow: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
 
