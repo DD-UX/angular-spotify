@@ -3,11 +3,10 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { PlaylistsService } from '../../services/playlists/playlists.service';
+import { CommonService } from '../../services/common/common.service';
 import { PlaylistItem} from '../../models/favorites/playlist.model';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
-
-import * as _ from 'lodash';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -55,7 +54,7 @@ export class TypeaheadComponent implements OnInit {
     this.noResults = this.results$.length < 1;
   }
 
-  constructor(public playlists: PlaylistsService) {}
+  constructor(public playlists: PlaylistsService, private globals: CommonService) {}
 
   ngOnInit() {
     // Declare search field
@@ -66,14 +65,14 @@ export class TypeaheadComponent implements OnInit {
       .valueChanges
       .debounceTime(600)
       .distinctUntilChanged()
-      .do(_ => this.loading = true)
+      .do(_ => this.globals.loading(true))
       .subscribe(term => {
         if (term === '') {
           return [];
         }
         return this.playlists.search(term)
           .map(res => res.playlists.items)
-          .do(_ => this.loading = false)
+          .do(_ => this.globals.loading(false))
           .subscribe (
             items => {
               // Get list of favorite playlist in the local scope

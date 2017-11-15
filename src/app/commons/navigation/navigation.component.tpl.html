@@ -14,7 +14,8 @@
 
         <span class="text-white d-none d-md-inline-block">{{auth.authInfo$.getValue().user.display_name}}</span>
       </button>
-      <div class="dropdown-menu dropdown-menu-right bg-success text-right" [ngClass]="{'show': userDDactive}">
+      <div class="dropdown-menu dropdown-menu-right bg-success text-right"
+           [ngClass]="{'show': userDDactive}" (click)="persistUserDD($event)">
         <small class="navbar__user__name d-block d-md-none p-1">
           <b>{{auth.authInfo$.getValue().user.display_name}}</b>
         </small>

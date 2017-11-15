@@ -38,7 +38,6 @@ export class AccessTokenValidGuard implements CanActivate {
       .map(authInfo => authInfo.isLoggedIn())
       .take(1)
       .do(allowed => {
-        console.log(allowed);
         if (!allowed) {
           this.router.navigate(['/login']);
         }

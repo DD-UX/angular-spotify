@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import {PlaylistsService} from '../../services/playlists/playlists.service';
+import {CommonService} from '../../services/common/common.service';
 
 @Component({
   selector: 'fdv-toggle',
@@ -26,14 +27,18 @@ export class ToggleComponent implements OnInit {
     const playlistFound = this.favoritesList.find(pl => pl.id === playlist.id);
     const isInFavorites = Boolean(playlistFound);
 
+    this.globals.loading(true);
+
     if (isInFavorites) {
       this.playlists.removeFromFavorites(playlist)
         .subscribe(
           res => {
             this.playlists.removePlaylistLocal(res, playlist);
+            this.globals.loading(false);
           },
           error => {
             this.playlists.removePlaylistLocal(error, playlist);
+            this.globals.loading(false);
           }
         );
     } else {
@@ -41,15 +46,17 @@ export class ToggleComponent implements OnInit {
         .subscribe(
           res => {
             this.playlists.addPlaylistLocal(res, playlist);
+            this.globals.loading(false);
           },
           error => {
             this.playlists.addPlaylistLocal(error, playlist);
+            this.globals.loading(false);
           }
         );
     }
   }
 
-  constructor(public playlists: PlaylistsService) { }
+  constructor(public playlists: PlaylistsService, private globals: CommonService) { }
 
   ngOnInit() {
   }
