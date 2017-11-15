@@ -68,6 +68,7 @@ export class TypeaheadComponent implements OnInit {
       .do(_ => this.globals.loading(true))
       .subscribe(term => {
         if (term === '') {
+          this.globals.loading(false);
           return [];
         }
         return this.playlists.search(term)
