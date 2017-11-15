@@ -15,6 +15,7 @@ import 'rxjs/add/operator/do';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import {CommonService} from '../common/common.service';
 
 @Injectable()
 export class PlaylistsService {
@@ -26,18 +27,20 @@ export class PlaylistsService {
   private token = new Map(JSON.parse(localStorage.getItem('spotify_token')));
   private user = this.auth.authInfo$.value.user;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient, private auth: AuthService, private globals: CommonService) {}
 
   updateLocalList (data) {
     localStorage.setItem('favorite_list', JSON.stringify(data));
   }
 
-  getList (): Observable<any> | Promise<any> | any {
+  getList (forced = false, callback?): Observable<any> | Promise<any> | any {
 
     // If playlist is locally stored, return
-    if (!_.isNull(this.playlist$.getValue().playlist)) {
+    if (!_.isNull(this.playlist$.getValue().playlist) && !forced) {
       return false;
     }
+
+    this.globals.loading(true);
 
     // Get playlist from API
     const url = `${App.USER_URL}/me/playlists`;
@@ -49,6 +52,7 @@ export class PlaylistsService {
         pl.items.forEach(item => item.isActive = true)
         return pl;
       })
+      .do(_ => this.globals.loading(false))
       .subscribe (
         data => {
           // Update observable with data
@@ -56,8 +60,11 @@ export class PlaylistsService {
 
           // Set local storage of token
           this.updateLocalList(data);
+
+          callback();
         },
-        error => error);
+        error => error
+      );
   }
 
   search (term: string): Observable<any> | Promise<any> | any {

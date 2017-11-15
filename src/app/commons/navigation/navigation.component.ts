@@ -56,6 +56,10 @@ export class NavigationComponent implements OnInit {
     $event.stopPropagation();
   }
 
+  isFavoritesView (): boolean {
+    return this.router.url === '/favorites';
+  }
+
   constructor(private router: Router, public auth: AuthService) {
     this.router.events.subscribe((route: any) => {
       if (!_.isUndefined(route.url)) {
