@@ -1,6 +1,33 @@
+@import "~bootstrap/scss/_functions";
+@import "../../../scss/_bootstrap-variables";
+
+
+$prefix: '.favorites__list';
 .favorites__list{
-  img {
-    max-width: 100px;
+  position: relative;
+
+  fdv-toggle{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-100%);
+    text-shadow: 1px 1px 1px rgba($black, 0.6);
+  }
+  & img#{$prefix}__image{
     box-shadow: 0 0 2px 1px rgba(#000, 0.1);
+  }
+  
+  & &__image {
+    max-width: 100px;
+    background: url(#{$spotify_logo}) no-repeat center center;
+    background-size: contain;
+  }
+
+  & span{
+    &#{$prefix}__image{
+      display: block;
+      width: 100%;
+      padding-top: 50%;
+    }
   }
 }

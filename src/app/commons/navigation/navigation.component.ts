@@ -1,7 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component, HostListener, OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { NavItem } from './nav-item.model';
+import { NavItem } from '../../models/navigation/nav-item.model';
 import * as _ from 'lodash';
+import {AuthService} from '../../services/auth/auth.service';
+import {HostBinding} from '@angular/compiler/src/core';
 
 @Component({
   selector: 'fdv-navigation',
@@ -15,11 +20,11 @@ export class NavigationComponent implements OnInit {
   // Navigation elements
   public navItems: NavItem[] = [
     {
-      path: 'favorites',
-      name: 'Favorites'
+      path: '/favorites',
+      name: 'Favorite Playlists'
     },
     {
-      path: 'search',
+      path: '/search',
       name: 'Search'
     }
   ];
@@ -27,12 +32,40 @@ export class NavigationComponent implements OnInit {
   // Active route
   public activeNav: string;
 
-  constructor(private _router: Router) {
-    this._router.events.subscribe((url:any) => {
-      if (!_.isUndefined(url.url)) {
-        this.activeNav = url.url.replace(/^\//, "");
+  // Dropdown for users
+  public userDDactive = false;
+
+  toggle ($event): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    this.userDDactive = !this.userDDactive;
+  }
+
+  // Click on document closes the dropdown
+  @HostListener('document:click', ['$event'])
+  @HostListener('document:touchstart', ['$event'])
+  closeUserDD () {
+    this.userDDactive = false;
+  }
+
+  // Click on the dropdown won't close it
+  @HostListener('click', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  persistUserDD ($event) {
+    $event.stopPropagation();
+  }
+
+  constructor(private router: Router, public auth: AuthService) {
+    this.router.events.subscribe((route: any) => {
+      if (!_.isUndefined(route.url)) {
+        this.activeNav = route.url;
       }
     });
+  }
+
+  logout () {
+    this.auth.logout();
   }
 
   ngOnInit() {

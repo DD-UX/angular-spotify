@@ -2,9 +2,22 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
-## Development server
+These are the dependencies you will need:
+* [NPM (Node package manager)](https://nodejs.org/es/download)
+* [Angular CLI](https://cli.angular.io/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+You might need to install also:
+* [TypeScript](https://www.typescriptlang.org/)
+* [Node Sass](https://github.com/sass/node-sass)
+* [Yarn](https://yarnpkg.com/en/)
+
+Even though Angular CLI provides Unit and e2e test support, no tests where written for this project.
+
+## Run a development server locally
+
+To run the project, download the repo at some folder, get into the project's folter and run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+**==== From here starts Angular-CLI documentation ====**
 
 ## Code scaffolding
 

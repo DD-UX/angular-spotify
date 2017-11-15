@@ -3,6 +3,31 @@
 @import "./scss/_bootstrap-variables";
 @import "~bootstrap/scss/bootstrap";
 
-router-outlet{
-  display: block;
+.btn,
+a{
+  cursor: pointer;
+  user-select: none;
+  transition: $transition-base;
+}
+
+.btn{
+  text-transform: uppercase;
+  font-variant: all-small-caps;
+  letter-spacing: 1px;
+}
+
+body{
+  &.loading{
+    &:before{
+      content: "";
+      display: block;
+      width: 100vw;
+      height: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: $zindex-modal-backdrop;
+      background: rgba($black, 0.6);
+    }
+  }
 }
