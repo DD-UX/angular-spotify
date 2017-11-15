@@ -94,6 +94,7 @@ export class AuthService {
 
   destroyToken () {
     localStorage.removeItem('spotify_token');
+    localStorage.removeItem('favorite_list');
     this.token = new Map();
   }
 }
