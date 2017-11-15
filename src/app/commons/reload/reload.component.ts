@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import {PlaylistsService} from '../../services/playlists/playlists.service';
-import {CommonService} from '../../services/common/common.service';
 
 @Component({
   selector: 'fdv-reload-playlist',
