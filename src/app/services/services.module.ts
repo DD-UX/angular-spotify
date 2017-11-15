@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PlaylistsService } from './playlists/playlists.service';
+import { CommonService } from './common/common.service';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { PlaylistsService } from './playlists/playlists.service';
   ],
   providers: [
     AuthService,
-    PlaylistsService
+    PlaylistsService,
+    CommonService
   ]
 })
 export class ServicesModule { }

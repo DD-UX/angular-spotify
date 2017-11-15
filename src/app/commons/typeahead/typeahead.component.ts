@@ -3,11 +3,10 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { PlaylistsService } from '../../services/playlists/playlists.service';
+import { CommonService } from '../../services/common/common.service';
 import { PlaylistItem} from '../../models/favorites/playlist.model';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
-
-import * as _ from 'lodash';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -33,19 +32,29 @@ export class TypeaheadComponent implements OnInit {
   // Click on document closes the dropdown
   @HostListener('document:click', ['$event'])
   @HostListener('document:touchstart', ['$event'])
-  closeSearchList ($event) {
-    if (!_.isEqual($event.target.id, 'searchPlaylists')) {
-      this.listVisible = false;
-      this.noResults = false;
-    }
+  closeSearchList () {
+    this.listVisible = false;
+    this.noResults = false;
   }
 
-  openSearchList () {
+  // Click on the options won't close the panel
+  @HostListener('click', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  persistSearchList ($event) {
+    $event.stopPropagation();
+  }
+
+  // Click on search field will close the panel
+  @HostListener('click', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  openSearchList ($event) {
+    $event.stopPropagation();
+
     this.listVisible = this.results$.length > 0;
     this.noResults = this.results$.length < 1;
   }
 
-  constructor(public playlists: PlaylistsService) {}
+  constructor(public playlists: PlaylistsService, private globals: CommonService) {}
 
   ngOnInit() {
     // Declare search field
@@ -56,14 +65,14 @@ export class TypeaheadComponent implements OnInit {
       .valueChanges
       .debounceTime(600)
       .distinctUntilChanged()
-      .do(_ => this.loading = true)
+      .do(_ => this.globals.loading(true))
       .subscribe(term => {
         if (term === '') {
           return [];
         }
         return this.playlists.search(term)
           .map(res => res.playlists.items)
-          .do(_ => this.loading = false)
+          .do(_ => this.globals.loading(false))
           .subscribe (
             items => {
               // Get list of favorite playlist in the local scope
