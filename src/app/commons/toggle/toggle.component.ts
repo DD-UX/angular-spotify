@@ -27,9 +27,15 @@ export class ToggleComponent implements OnInit {
     const playlistFound = this.favoritesList.find(pl => pl.id === playlist.id);
     const isInFavorites = Boolean(playlistFound);
 
-    this.globals.loading(true);
-
     if (isInFavorites) {
+      const confirmation = confirm('Are you sure you want to unfollow this playlist?');
+
+      if (!confirmation){
+        return false;
+      }
+
+      this.globals.loading(true);
+
       this.playlists.removeFromFavorites(playlist)
         .subscribe(
           res => {
@@ -42,6 +48,8 @@ export class ToggleComponent implements OnInit {
           }
         );
     } else {
+      this.globals.loading(true);
+
       this.playlists.addToFavorites(playlist)
         .subscribe(
           res => {
