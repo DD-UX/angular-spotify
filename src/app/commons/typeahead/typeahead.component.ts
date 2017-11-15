@@ -33,14 +33,24 @@ export class TypeaheadComponent implements OnInit {
   // Click on document closes the dropdown
   @HostListener('document:click', ['$event'])
   @HostListener('document:touchstart', ['$event'])
-  closeSearchList ($event) {
-    if (!_.isEqual($event.target.id, 'searchPlaylists')) {
-      this.listVisible = false;
-      this.noResults = false;
-    }
+  closeSearchList () {
+    this.listVisible = false;
+    this.noResults = false;
   }
 
-  openSearchList () {
+  // Click on the options won't close the panel
+  @HostListener('click', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  persistSearchList ($event) {
+    $event.stopPropagation();
+  }
+
+  // Click on search field will close the panel
+  @HostListener('click', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  openSearchList ($event) {
+    $event.stopPropagation();
+
     this.listVisible = this.results$.length > 0;
     this.noResults = this.results$.length < 1;
   }

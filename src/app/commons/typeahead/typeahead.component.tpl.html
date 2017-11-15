@@ -5,9 +5,9 @@
            class="form-control form-control-lg"
            placeholder="Search for playlists"
            [formControl]="searchField"
-           (focus)="openSearchList()">
+           (click)="openSearchList($event)">
 
-    <ul class="typeahead__list list-unstyled" *ngIf="listVisible">
+    <ul class="typeahead__list list-unstyled" *ngIf="listVisible" (click)="persistSearchList($event)">
       <li *ngFor="let playlist of results$" class="media d-flex flex-row align-items-center">
         <img class="typeahead__list__image" *ngIf="playlist.images.length > 0"
              [src]="playlist.images[0].url" [alt]="playlist.name">
