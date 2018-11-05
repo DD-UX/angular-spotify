@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import {PlaylistsService} from '../../services/playlists/playlists.service';
+import {AuthService} from '../../services/auth/auth.service';
 import {CommonService} from '../../services/common/common.service';
 
 @Component({
@@ -22,13 +23,17 @@ export class ToggleComponent implements OnInit {
 
   // Get list of favorite playlist in the local scope
   private favoritesList = this.playlists.playlist$.getValue().playlist.items;
+  private confirmationMessage = 'Are you sure you want to unfollow this playlist?';
 
   setFavorite (playlist) {
     const playlistFound = this.favoritesList.find(pl => pl.id === playlist.id);
     const isInFavorites = Boolean(playlistFound);
 
     if (isInFavorites) {
-      const confirmation = confirm('Are you sure you want to unfollow this playlist?');
+      if (playlistFound.owner.id === this.auth.authInfo$.value.user.id) {
+        this.confirmationMessage = `Unfollowing a playlist created by yourself will delete it. ${this.confirmationMessage}`;
+      }
+      const confirmation = confirm(this.confirmationMessage);
 
       if (!confirmation){
         return false;
@@ -64,7 +69,7 @@ export class ToggleComponent implements OnInit {
     }
   }
 
-  constructor(public playlists: PlaylistsService, private globals: CommonService) { }
+  constructor(public playlists: PlaylistsService, private globals: CommonService, private auth: AuthService) {}
 
   ngOnInit() {
   }
